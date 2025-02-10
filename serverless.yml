@@ -1,0 +1,78 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: choix
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: repiliate
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: repiliate
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  memorySize: 1600 # Allocate enough memory for headless Chrome
+  timeout: 300 # Allow enough time for scraping
+
+package:
+  exclude:
+    - node_modules/.pnpm/**
+
+functions:
+  traffiqnetDateRange:
+    handler: src/partner_integrations/traffiqnetDateRange.run
+    layers:
+      - arn:aws:lambda:us-east-1:138628688511:layer:chromium:1
+  traffiqnetDaily:
+    handler: src/partner_integrations/traffiqnetDaily.run
+    events:
+      # every day at 1am
+      - schedule: cron(0 1 * * ? *)
+    layers:
+      - arn:aws:lambda:us-east-1:138628688511:layer:chromium:1
+  traffiqnetToday:
+    handler: src/partner_integrations/traffiqnetToday.run
+    events:
+      # every 3 hours
+      - schedule: cron(0 */3 * * ? *)
+    layers:
+      - arn:aws:lambda:us-east-1:138628688511:layer:chromium:1
+  bossAffiliatesDaily:
+    handler: src/partner_integrations/bossAffiliatesDaily.run
+    events:
+      # every day at 1am
+      - schedule: cron(0 1 * * ? *)
+    layers:
+      - arn:aws:lambda:us-east-1:138628688511:layer:chromium:1
+  bossAffiliatesToday:
+    handler: src/partner_integrations/bossAffiliatesToday.run
+    events:
+      # every 3 hours
+      - schedule: cron(0 */3 * * ? *)
+    layers:
+      - arn:aws:lambda:us-east-1:138628688511:layer:chromium:1
+  glossAffiliatesDaily:
+    handler: src/partner_integrations/glossAffiliatesDaily.run
+    events:
+      # every day at 1am
+      - schedule: cron(0 1 * * ? *)
+    layers:
+      - arn:aws:lambda:us-east-1:138628688511:layer:chromium:1
+  glossAffiliatesToday:
+    handler: src/partner_integrations/glossAffiliatesToday.run
+    events:
+      # every 3 hours
+      - schedule: cron(0 */3 * * ? *)
+    layers:
+      - arn:aws:lambda:us-east-1:138628688511:layer:chromium:1
+  ivyAffiliatesDaily:
+    handler: src/partner_integrations/ivyAffiliatesDaily.run
+    events:
+      # every day at 1am
+      - schedule: cron(0 1 * * ? *)
+    layers:
+      - arn:aws:lambda:us-east-1:138628688511:layer:chromium:1
+  ivyAffiliatesToday:
+    handler: src/partner_integrations/ivyAffiliatesToday.run
+    events:
+      # every 3 hours
+      - schedule: cron(0 */3 * * ? *)
+    layers:
+      - arn:aws:lambda:us-east-1:138628688511:layer:chromium:1
