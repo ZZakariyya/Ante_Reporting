@@ -1,11 +1,4 @@
 {
-  "name": "repiliate",
-  "version": "0.0.1",
-  "description": "Repiliate",
-  "license": "ISC",
-  "author": {
-    "name": "Choix"
-  },
   "type": "module",
   "scripts": {
     "deploy": "sls deploy",

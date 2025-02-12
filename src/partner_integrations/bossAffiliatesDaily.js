@@ -49,8 +49,7 @@ export async function run() {
 
     const reader = await download.createReadStream();
 
-    
-
+  
     const reports = [];
     const date = new Date();
     date.setDate(date.getDate() - 1);
